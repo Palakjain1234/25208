@@ -17,15 +17,15 @@ import uuid
 from datetime import datetime
 import joblib
 
-from optim import optimize_rake_allocation
+from optim import RakeOptimizer
 from multi_model import MultiModelPipeline
 
 # -------------------------------------------------------------------------
 # Configuration
 # -------------------------------------------------------------------------
-DATA_PATH = "./bokaro_to_cmo_customers.csv"
-MODEL_DIR = "./saved_models"
-OUTPUT_DIR = "./api_results"
+DATA_PATH = r"C:\Installation\Hackathons\sih208\bokaro_to_cmo_customers.csv"
+MODEL_DIR = r"C:\Installation\Hackathons\sih208\saved_models"
+OUTPUT_DIR = r"C:\Installation\Hackathons\sih208\api_results"
 
 # Create output directory if it doesn't exist
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -166,7 +166,7 @@ def run_optimization_job(job_id: str, plan_ids: Optional[List[str]] = None):
         jobs[job_id]["message"] = "Running optimization..."
         
         # Run optimization
-        result_df = optimize_rake_allocation(df_pred)
+        result_df = RakeOptimizer(df_pred)
         
         jobs[job_id]["progress"] = 1.0
         jobs[job_id]["message"] = "Optimization completed"
